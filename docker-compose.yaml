@@ -1,0 +1,18 @@
+version: "3.8"
+
+services:
+  spark-delta:
+    build:
+      context: .
+      dockerfile: Dockerfile_delta_quickstart
+    container_name: delta_quickstart
+    entrypoint: ["bash", "startup.sh"]
+    environment:
+      - SPARK_WORKER_MEMORY=4g # Memory allocation
+      - SPARK_WORKER_CORES=2 # CPU cores
+    volumes:
+        - ./data:/opt/spark/work-dir/data
+        - ./src:/opt/spark/work-dir/src
+    ports:
+      - "8888:8888" # For JupyterLab if needed
+    tty: true
